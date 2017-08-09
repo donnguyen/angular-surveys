@@ -52,5 +52,8 @@
   "bugs": {
     "url": "https://github.com/mwasiluk/angular-surveys/issues"
   },
-  "homepage": "https://github.com/mwasiluk/angular-surveys#readme"
+  "homepage": "https://github.com/mwasiluk/angular-surveys#readme",
+  "dependencies": {
+    "bower": "^1.8.0"
+  }
 }
