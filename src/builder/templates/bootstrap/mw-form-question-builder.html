@@ -3,7 +3,6 @@
         <div ng-form="ctrl.form" ng-if="!ctrl.isPreview">
             <div class="form-horizontal">
                 <div class="form-group">
-
                     <mw-label label-for="question-text-{{ctrl.id}}" label-class="col-sm-2 control-label"  label-key="mwForm.question.text"></mw-label>
                     <div class="col-sm-10 col-md-8">
                         <input type="text" class="form-control" name="text" ng-attr-id="question-text-{{ctrl.id}}" ng-model="ctrl.question.text" ng-readonly="ctrl.readOnly" required>
