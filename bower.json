@@ -43,7 +43,11 @@
     "angular-mocks": "~1.4.8",
     "angular-material": "^1.0.7",
     "bootstrap": "3.3.7",
-    "MDBootstrap": "4.3.2",
-    "bootstrap4": "bootstrap#v4.0.0-alpha.6"
+    "MDBootstrap": "4.4.1",
+    "bootstrap4": "bootstrap#v4.0.0-beta"
+  },
+  "resolutions": {
+    "angular": "1.6.5",
+    "bootstrap": "v4.0.0-beta"
   }
 }
