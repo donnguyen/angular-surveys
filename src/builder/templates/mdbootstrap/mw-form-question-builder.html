@@ -51,7 +51,7 @@
                     <div ng-switch-when="priority">
                         <mw-question-priority-list-builder question="ctrl.question" read-only="ctrl.readOnly"></mw-question-priority-list-builder>
                     </div>
-                    <div ng-switch-when="number" class="form-inline">
+                    <div ng-switch-when="number" class="form-group">
                         <div class="range-config form-inline">
                             <div class="md-form form-group">
                                 <span translate="mwForm.question.number.min">Min</span>: 
@@ -62,8 +62,7 @@
                                 <input class="form-control" type="number" min="{{ctrl.question.min}}" ng-model="ctrl.question.max" ng-readonly="ctrl.readOnly"/>
                             </div>
                         </div>
-                        <br/>
-                        <input class="form-control" type="number" disabled >
+                        <input class="form-control col-md-5 col-lg-4" type="number" disabled >
                     </div>
                     <div ng-switch-when="date" class="form-inline">
                         <input class="form-control" type="date" disabled>
@@ -72,7 +71,7 @@
                         <input class="form-control" type="datetime" disabled>
                     </div>
                     <div ng-switch-when="time" class="form-inline">
-                        <input class="form-control" type="datetime" disabled>
+                        <input class="form-control" type="time" disabled>
                     </div>
                     <div ng-switch-when="email" class="form-inline">
                         <input class="form-control" type="email" disabled>
@@ -98,23 +97,17 @@
                     <mw-question-division-builder question="ctrl.question" read-only="ctrl.readOnly"></mw-question-division-builder>
                 </div>
             </div>
-
-            <br/> <br/>
-            <div class="row">
-                <div class="col-xs-2">
-                    <button type="button" class="btn btn-primary" ng-click="ctrl.save()" translate="mwForm.buttons.questionReady">Gotowe</button>
+            <div class="actions-container">
+                <div class="switch">
+                    <label class="mb-0">
+                        Required
+                        <input type="checkbox" checked="checked" ng-model="ctrl.question.required" ng-disabled="ctrl.readOnly">
+                        <span class="lever"></span>
+                    </label>
                 </div>
-                <div class="col-xs-10">
-                    <div class="md-form checkbox">
-                        <input type="checkbox" id="question-require-{{ctrl.question.id}}" ng-model="ctrl.question.required" ng-disabled="ctrl.readOnly">
-                        <label for="question-require-{{ctrl.question.id}}">
-                            <span translate="mwForm.question.required">Required</span>
-                        </label>
-                    </div>
-                </div>
-
+                <div class="separator"></div>
+                <button type="button" class="btn btn-primary mr-0" ng-click="ctrl.save()" translate="mwForm.buttons.questionReady">Gotowe</button>
             </div>
-
         </div>
         <div class="mw-preview" ng-if="ctrl.isPreview">
             <div class="mw-question-text">

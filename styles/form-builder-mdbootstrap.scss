@@ -1,14 +1,28 @@
+@import "../bower_components/bootstrap4/scss/functions";
 @import "../bower_components/bootstrap4/scss/variables";
 @import "../bower_components/bootstrap4/scss/mixins";
 @import "form-builder";
 
+// BRING BACK HIDDEN CLASSES, BUT MAY CONFLICT WITH JQUERY
+@each $bp in map-keys($grid-breakpoints) {
+  .hidden-#{$bp}-up {
+    @include media-breakpoint-up($bp) {
+      display: none !important;
+    }
+  }
+  .hidden-#{$bp}-down {
+    @include media-breakpoint-down($bp) {
+      display: none !important;
+    }
+  }
+}
 
 .mw-form-builder{
   .mw-form-page-builder{
     .mw-page-tab-container{
       position: relative;
       .mw-form-page-tab{
-          background-color: $brand-success;
+          background-color: theme-color("success");
           height: 40px;
           display: inline-flex;
           align-items: center;
@@ -23,7 +37,7 @@
 
       .mw-page-tab-triangle{
           border-right: 20px solid transparent;
-          border-top: 40px solid $brand-success;
+          border-top: 40px solid theme-color("success");
       }
     }
 
@@ -46,21 +60,53 @@
     }
 
     .mw-form-page-element-builder {
-      padding: 37px 24px 24px 42px;
+      padding: 37px 24px 10px 42px;
 
       &.active {
         box-shadow: 0 -2px 2px 0 rgba(0,0,0,0.2), 0 6px 10px 0 rgba(0,0,0,0.3);
-        border-left: 4px solid $brand-primary;
+        border-left: 4px solid theme-color("primary");
       }
     }
 
     .mw-form-question-builder-wrapper {
+      .actions-container {
+        border-top: 2px solid #ccc;
+        margin-top: 30px;
+        padding: 10px 0 0 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        .separator {
+          border-left: 1px solid #e0e0e0;
+          height: 32px;
+          margin: 0 16px;
+          width: 0;
+        }
+      }
+
       .question-offered-answer-list-builder {
         margin-left: -24px;
 
         .mw-question-offered-answer {
           display: flex;
           align-items: center;
+
+          input.offered-answer-value {
+            flex: 1;
+          }
+
+          &.add-new-answer-widget {
+            input.offered-answer-value {
+              width: auto;
+            }
+          }
+
+          &.custom-answer {
+            input.offered-answer-value {
+              margin-left: 10px;
+            }
+          }
 
           .remove-item-button {
             border-radius: 0;
@@ -72,7 +118,7 @@
               text-transform: uppercase;
               font-size: 85%;
               font-weight: 600;
-              color: $brand-primary;
+              color: theme-color("primary");
             }
           }
         }
@@ -304,7 +350,62 @@
         }
       }
     }
-  }  
+  }
+  
+  // SWICTH
+  .switch, .switch * {
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+
+    label {
+      cursor: pointer;
+
+      input[type=checkbox] {
+        opacity: 0;
+        width: 0;
+        height: 0;
+
+        &:checked+.lever {
+          background-color: #dccfe2;
+
+          &:after {
+            background-color: #a6c;
+            left: 24px;
+          }
+        }
+      }
+
+      .lever {
+        position: relative;
+        width: 40px;
+        height: 15px;
+        background-color: #818181;
+        border-radius: 15px;
+        transition: background .3s ease;
+        margin: 0 16px;
+        vertical-align: middle;
+
+        &:after {
+          position: absolute;
+          width: 21px;
+          height: 21px;
+          background-color: #F1F1F1;
+          border-radius: 21px;
+          box-shadow: 0 1px 3px 1px rgba(0,0,0,.4);
+          left: -5px;
+          top: -3px;
+          transition: left .3s ease,background .3s ease,box-shadow .1s ease,-webkit-box-shadow .1s ease;
+        }
+      }
+
+      .lever, .lever:after {
+        content: "";
+        display: inline-block;
+      }
+    }
+  }
 
   .mw-question-type {
     .select2-container--bootstrap {
@@ -330,7 +431,7 @@
   
       .select2-selection--single{
         padding: 6px 24px 2px 0;
-        height: 28px;
+        height: 29px;
         line-height: 1.5;
       }
   
