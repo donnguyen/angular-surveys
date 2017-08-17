@@ -55,6 +55,13 @@
       padding: 5px 0;
     }
 
+    .page-element-list {
+      .empty-page-element-list-label {
+        position: inherit;
+        text-align: center;
+      }
+    }
+
     .form-page-builder-body {
       padding: 0;
     }
