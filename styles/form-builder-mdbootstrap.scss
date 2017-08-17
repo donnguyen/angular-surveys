@@ -72,7 +72,7 @@
       }
     }
 
-    .mw-form-question-builder-wrapper {
+    .mw-form-image-builder-wrapper, .mw-form-question-builder-wrapper, .mw-form-paragraph-builder-wrapper {
       .actions-container {
         border-top: 2px solid #ccc;
         margin-top: 30px;
@@ -88,7 +88,9 @@
           width: 0;
         }
       }
+    }
 
+    .mw-form-question-builder-wrapper {
       .question-offered-answer-list-builder {
         margin-left: -24px;
 
