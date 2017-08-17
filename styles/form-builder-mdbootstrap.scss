@@ -62,6 +62,10 @@
     .mw-form-page-element-builder {
       padding: 37px 24px 10px 42px;
 
+      &.inactive {
+        padding-top: 12px;
+      }
+
       &.active {
         box-shadow: 0 -2px 2px 0 rgba(0,0,0,0.2), 0 6px 10px 0 rgba(0,0,0,0.3);
         border-left: 4px solid theme-color("primary");
@@ -466,6 +470,34 @@
   .mw-preview {
     .md-form {
       margin-bottom: 0.5rem;
+    }
+
+    .mw-question-text {
+      &.empty-question-text {
+        color: rgba(0, 0, 0, 0.26);
+      }
+
+      .required-mark {
+        color: #db4437;
+      }
+    }
+
+    .offered-preview {
+      display: flex;
+      align-items: center;
+
+      input.other-input {
+        width: auto;
+        padding: 0;
+        margin: 0 0 0 10px;
+      }
+    }
+
+    .table-responsive {
+      display: block;
+      width: 100%;
+      overflow-x: auto;
+      -ms-overflow-style: -ms-autohiding-scrollbar;
     }
   }
 }
