@@ -184,6 +184,23 @@
         }
       }
     }
+
+    .page-actions {
+      border-top: 1px solid #ccc;
+      padding-top: 10px;
+      padding-bottom: 10px;
+
+      .next-actions {
+        font-size: 80%;
+
+        .select2-container--bootstrap {
+          margin-left: 10px;
+          font-size: 95%;
+          font-weight: 600;
+          padding-top: 0px;
+        }
+      }
+    }
   }
 
   .form-control {
@@ -413,7 +430,7 @@
     }
   }
 
-  .mw-question-type {
+  .mw-question-type, .page-actions .next-actions {
     .select2-container--bootstrap {
       padding-top: 0.5rem;
       font-size: 1rem;
@@ -501,6 +518,10 @@
       overflow-x: auto;
       -ms-overflow-style: -ms-autohiding-scrollbar;
     }
+  }
+
+  .btn {
+    padding: 0.85rem 1rem;
   }
 }
 

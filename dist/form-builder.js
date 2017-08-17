@@ -1203,7 +1203,7 @@ angular.module('mwFormBuilder').directive('mwFormConfirmationPageBuilder', funct
 });
 
 
-angular.module('mwFormBuilder').directive('mwFormBuilder', ["$rootScope", function ($rootScope) {
+angular.module('mwFormBuilder').directive('mwFormBuilder', ["$rootScope", "$timeout", function ($rootScope, $timeout) {
 
     return {
         replace: true,
@@ -1334,6 +1334,17 @@ angular.module('mwFormBuilder').directive('mwFormBuilder', ["$rootScope", functi
                 ctrl.onChangePageSize();
             };
 
+            ctrl.initSelect2 = function() {
+                $timeout(function() {
+                    $('select.select2').not('.select2-hidden-accessible').select2({
+                        theme: "bootstrap",
+                        dropdownCssClass: "question-type-select2-dropdown",
+                        containerCssClass: "question-type-select2-container",
+                        width: "100%"
+                    });  
+                })
+            }
+
             function arrayMove(arr, fromIndex, toIndex) {
                 var element = arr[fromIndex];
                 arr.splice(fromIndex, 1);
@@ -1421,6 +1432,12 @@ angular.module('mwFormBuilder').directive('mwFormBuilder', ["$rootScope", functi
             });
             scope.$on('mwForm.pageEvents.addPage', function(event,data){
                 ctrl.addPage();
+            });
+            scope.$on('mwForm.pageEvents.pageAdded', function(event,data){
+                ctrl.initSelect2();
+            });
+            scope.$on('mwForm.pageEvents.pageMoved', function(event,data){
+                ctrl.initSelect2();
             });
         }
     };
