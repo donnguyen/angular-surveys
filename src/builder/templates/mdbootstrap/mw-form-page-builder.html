@@ -59,12 +59,6 @@
     
                 </ul>
             </div>
-            <div class="form-inline next-actions align-self-end" ng-if="!ctrl.isLast">
-                <label translate="mwForm.pageFlow.afterPage" translate-values="{page:ctrl.formPage.number}" ng-attr-for="page-flow-select-{{ctrl.formPage.number}}">Po stronie 1</label>
-                <div class="select2-wrapper">
-                    <select ng-attr-id="page-flow-select-{{ctrl.formPage.number}}" ng-options="pageFlow.label|translate:pageFlow for pageFlow in ctrl.possiblePageFlow"  ng-model="ctrl.formPage.pageFlow"  class="form-control select2" ng-disabled="ctrl.readOnly"></select>
-                </div>
-            </div>
         </div>
     </div>
 </div>
