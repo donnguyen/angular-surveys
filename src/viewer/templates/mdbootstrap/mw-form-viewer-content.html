@@ -1,7 +1,6 @@
 <div class="mw-form-viewer-content">
         <h1 class="form-title">{{ctrl.formData.name}}</h1>
         <div class="mw-title-page" ng-if="!ctrl.currentPage && !ctrl.formSubmitted">
-
             <div class="mw-form-description">
                 {{ctrl.formData.description}}
             </div>
@@ -16,7 +15,7 @@
                     <mw-form-question ng-switch-when="question" question="pageElement.question" question-response="ctrl.responseData[pageElement.question.id]"  read-only="ctrl.readOnly" on-response-changed="ctrl.onResponseChanged(pageElement)"></mw-form-question>
                     <div class="image-element" ng-switch-when="image">
                         <figure ng-class="'align-'+pageElement.image.align">
-                            <img ng-src="{{pageElement.image.src}}" ng-attr-alt="pageElement.image.caption">
+                            <img class="img-fluid" ng-src="{{pageElement.image.src}}" ng-attr-alt="pageElement.image.caption">
                             <figcaption ng-if="pageElement.image.caption">{{pageElement.image.caption}}</figcaption>
                         </figure>
                     </div>

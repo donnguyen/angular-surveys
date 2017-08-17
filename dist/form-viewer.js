@@ -222,7 +222,7 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
 
                 ctrl.initResponsesForCurrentPage();
 
-
+                ctrl.initSelect2();
             };
 
 
@@ -354,6 +354,16 @@ angular.module('mwFormViewer').directive('mwFormViewer', ["$rootScope", function
                 ctrl.$onInit();
             }
 
+            ctrl.initSelect2 = function() {
+                $timeout(function() {
+                    $('select.select2').not('.select2-hidden-accessible').select2({
+                        theme: "bootstrap",
+                        dropdownCssClass: "question-type-select2-dropdown",
+                        containerCssClass: "question-type-select2-container",
+                        width: "100%"
+                    });  
+                })
+            }
         }],
         link: function (scope, ele, attrs){
             var ctrl = scope.ctrl;

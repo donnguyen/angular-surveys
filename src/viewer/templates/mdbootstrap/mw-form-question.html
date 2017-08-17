@@ -1,78 +1,74 @@
 <div class="mw-form-question">
-
     <div class="mw-question-text">
-        {{::ctrl.print(ctrl.question.text)}} <span ng-if="ctrl.question.required">*</span>
+        {{::ctrl.print(ctrl.question.text)}} <span ng-if="ctrl.question.required" class="required-mark">*</span>
     </div>
 
     <div class="mw-question-answers" ng-switch="ctrl.question.type">
-        <div ng-switch-when="text">
+        <div ng-switch-when="text" class="md-form">
             <input class="form-control" type="text" ng-model="ctrl.questionResponse.answer"  placeholder="{{'mwForm.question.preview.text'|translate}}" ng-required="ctrl.question.required" ng-readonly="ctrl.readOnly">
         </div>
         <div ng-switch-when="textarea">
-            <textarea msd-elastic class="form-control" ng-model="ctrl.questionResponse.answer"  placeholder="{{'mwForm.question.preview.textarea'|translate}}" ng-required="ctrl.question.required" ng-readonly="ctrl.readOnly"></textarea>
+            <textarea msd-elastic class="md-textarea form-control" ng-model="ctrl.questionResponse.answer"  placeholder="{{'mwForm.question.preview.textarea'|translate}}" ng-required="ctrl.question.required" ng-readonly="ctrl.readOnly"></textarea>
         </div>
         <div ng-switch-when="radio">
             <div class="radio" ng-repeat="answer in ctrl.question.offeredAnswers">
-                <label>
-                    <input type="radio" ng-model="ctrl.questionResponse.selectedAnswer" ng-value="answer.id" name="answer-for-question-{{ctrl.question.id}}" ng-change="ctrl.selectedAnswerChanged()" ng-required="ctrl.question.required &&!ctrl.isOtherAnswer" ng-disabled="ctrl.readOnly">
+                <input id="{{answer.id}}" type="radio" ng-model="ctrl.questionResponse.selectedAnswer" ng-value="answer.id" name="answer-for-question-{{ctrl.question.id}}" ng-change="ctrl.selectedAnswerChanged()" ng-required="ctrl.question.required &&!ctrl.isOtherAnswer" ng-disabled="ctrl.readOnly">
+                <label for="{{answer.id}}">
                     {{::ctrl.print(answer.value)}}
                 </label>
             </div>
-            <div class="radio" ng-if="ctrl.question.otherAnswer">
-                <label>
-                    <input type="radio" ng-model="ctrl.isOtherAnswer" ng-value="true" name="other-answer-for-question-{{ctrl.question.id}}" ng-change="ctrl.otherAnswerRadioChanged()" ng-disabled="ctrl.readOnly"><span translate="mwForm.question.preview.otherAnswer">Inna</span>:
+            <div class="radio other-answer" ng-if="ctrl.question.otherAnswer">
+                <input id="other-{{ctrl.question.id}}" type="radio" ng-model="ctrl.isOtherAnswer" ng-value="true" name="other-answer-for-question-{{ctrl.question.id}}" ng-change="ctrl.otherAnswerRadioChanged()" ng-disabled="ctrl.readOnly">
+                <label for="other-{{ctrl.question.id}}">
+                    <span translate="mwForm.question.preview.otherAnswer">Inna</span>:
                 </label>
-                <span class="form-inline">
-                    <input type="text" name="other-answer-for-question-{{ctrl.question.id}}" ng-model="ctrl.questionResponse.other" class="form-control" ng-disabled="!ctrl.isOtherAnswer || ctrl.readOnly"
-                                   ng-required="ctrl.isOtherAnswer">
-                </span>
+                <input type="text" name="other-answer-for-question-{{ctrl.question.id}}" ng-model="ctrl.questionResponse.other" class="form-control other-input" ng-disabled="!ctrl.isOtherAnswer || ctrl.readOnly" ng-required="ctrl.isOtherAnswer">
             </div>
         </div>
 
         <div ng-switch-when="checkbox">
             <div class="checkbox" ng-repeat="answer in ::ctrl.question.offeredAnswers">
-                <label>
-                    <input type="checkbox" name="answer-for-question-{{ctrl.question.id}}" ng-checked="ctrl.questionResponse.selectedAnswers.indexOf(answer.id) != -1" ng-click="ctrl.toggleSelectedAnswer(answer)" ng-disabled="ctrl.readOnly">
+                <input id="{{answer.id}}" type="checkbox" name="answer-for-question-{{ctrl.question.id}}" ng-checked="ctrl.questionResponse.selectedAnswers.indexOf(answer.id) != -1" ng-click="ctrl.toggleSelectedAnswer(answer)" ng-disabled="ctrl.readOnly">
+                <label for="{{answer.id}}">
                     {{::ctrl.print(answer.value)}}
                 </label>
             </div>
-            <div class="checkbox"  ng-if="ctrl.question.otherAnswer">
-                <label>
-                    <input type="checkbox" name="answer-for-question-{{ctrl.question.id}}" ng-model="ctrl.isOtherAnswer" ng-change="ctrl.otherAnswerCheckboxChanged()" ng-disabled="ctrl.readOnly"><span translate="mwForm.question.preview.otherAnswer">Inna</span>:
+            <div class="checkbox other-answer"  ng-if="ctrl.question.otherAnswer">
+                <input id="other-{{ctrl.question.id}}" type="checkbox" name="answer-for-question-{{ctrl.question.id}}" ng-model="ctrl.isOtherAnswer" ng-change="ctrl.otherAnswerCheckboxChanged()" ng-disabled="ctrl.readOnly">
+                <label for="other-{{ctrl.question.id}}">
+                    <span translate="mwForm.question.preview.otherAnswer">Inna</span>:
                 </label>
-                <span class="form-inline">
-                    <input type="text" ng-model="ctrl.questionResponse.other" name="other-answer-for-question-{{ctrl.question.id}}" class="form-control" ng-disabled="!ctrl.isOtherAnswer || ctrl.readOnly" ng-required="ctrl.isOtherAnswer">
-                </span>
-
+                <input type="text" ng-model="ctrl.questionResponse.other" name="other-answer-for-question-{{ctrl.question.id}}" class="form-control other-input" ng-disabled="!ctrl.isOtherAnswer || ctrl.readOnly" ng-required="ctrl.isOtherAnswer">
             </div>
             <input type="hidden" ng-model="ctrl.selectedAnswer" ng-required="ctrl.question.required &&!ctrl.isOtherAnswer"/>
         </div>
-        <div ng-switch-when="select">
-            <select ng-options="answer.id as ctrl.print(answer.value) for answer in ::ctrl.question.offeredAnswers" ng-model="ctrl.questionResponse.selectedAnswer" class="form-control"  ng-disabled="ctrl.readOnly" ng-required="ctrl.question.required"></select>
+        <div ng-switch-when="select" class="md-form">
+            <select ng-options="answer.id as ctrl.print(answer.value) for answer in ::ctrl.question.offeredAnswers" ng-model="ctrl.questionResponse.selectedAnswer" class="form-control select2"  ng-disabled="ctrl.readOnly" ng-required="ctrl.question.required"></select>
         </div>
         <div ng-switch-when="grid">
             <div class="table-responsive">
-                <table class="table table-condensed table-striped" border="0" cellpadding="5" cellspacing="0">
+                <table class="table table-striped grid-table" border="0" cellpadding="5" cellspacing="0">
                     <thead>
-                    <tr>
-                        <td></td>
-                        <td ng-repeat="col in ::ctrl.question.grid.cols">
-                            <label>{{::ctrl.print(col.label)}}</label>
-                        </td>
-                    </tr>
-
+                        <tr>
+                            <th></th>
+                            <th ng-repeat="col in ::ctrl.question.grid.cols">
+                                <label>{{::ctrl.print(col.label)}}</label>
+                            </th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="row in ::ctrl.question.grid.rows">
-                        <td>
-                            {{::ctrl.print(row.label)}}
-                        </td>
-                        <td ng-repeat="col in ::ctrl.question.grid.cols" ng-switch="ctrl.question.grid.cellInputType">
-                            <input ng-switch-when="radio"  type="radio" ng-model="ctrl.questionResponse[row.id]" ng-value="col.id" name="answer-for-question-{{row.id}}" ng-required="ctrl.question.required" ng-disabled="ctrl.readOnly">
-                            <input ng-switch-when="checkbox"  type="checkbox" ng-model="ctrl.questionResponse[row.id][col.id]" name="answer-for-question-{{row.id}}-{{col.id}}" ng-required="ctrl.question.required"  ng-disabled="ctrl.readOnly">
-                            <input ng-switch-default  ng-attr-type="{{ctrl.question.grid.cellInputType}}" ng-model="ctrl.questionResponse[row.id][col.id]" name="answer-for-question-{{row.id}}-{{col.id}}" ng-required="ctrl.question.required" ng-disabled="ctrl.readOnly" ng-class="'form-control'">
-                        </td>
-                    </tr>
+                        <tr ng-repeat="row in ::ctrl.question.grid.rows">
+                            <td>
+                                {{::ctrl.print(row.label)}}
+                            </td>
+                            <td ng-repeat="col in ::ctrl.question.grid.cols" ng-switch="ctrl.question.grid.cellInputType">
+                                <div class="input-type">
+                                    <input id="answer-for-question-{{row.id}}-{{col.id}}" ng-switch-when="radio"  type="radio" ng-model="ctrl.questionResponse[row.id]" ng-value="col.id" name="answer-for-question-{{row.id}}" ng-required="ctrl.question.required" ng-disabled="ctrl.readOnly">
+                                    <input id="answer-for-question-{{row.id}}-{{col.id}}"  ng-switch-when="checkbox"  type="checkbox" ng-model="ctrl.questionResponse[row.id][col.id]" name="answer-for-question-{{row.id}}-{{col.id}}" ng-required="ctrl.question.required"  ng-disabled="ctrl.readOnly">
+                                    <label for="answer-for-question-{{row.id}}-{{col.id}}"></label>
+                                </div>
+                            </td>
+                        </tr>
                     </tbody>
 
                 </table>
