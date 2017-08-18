@@ -131,6 +131,14 @@ angular.module('mwFormBuilder').directive('mwFormPageBuilder', function ($rootSc
 
             ctrl.selectElement = function(element){
                 ctrl.activeElement=element;
+                $timeout(function() {
+                    $('select.select2').not('.select2-hidden-accessible').select2({
+                        theme: "bootstrap",
+                        dropdownCssClass: "question-type-select2-dropdown",
+                        containerCssClass: "question-type-select2-container",
+                        width: "100%"
+                    });  
+                })
             };
 
             ctrl.onElementReady = function(){

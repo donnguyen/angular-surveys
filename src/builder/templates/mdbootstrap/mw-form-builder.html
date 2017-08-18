@@ -1,0 +1,25 @@
+<div class="mw-form-builder">
+    <form name="ctrl.form" role="form" novalidate>
+        <div class="mw-title-page">
+
+            <div class="md-form">
+                <input wd-active-me type="text" class="form-control" name="formName" id="formName" ng-model="ctrl.formData.name" ng-readonly="ctrl.readOnly" placeholder="{{'mwForm.form.name.placeholder'|translate}}" required>
+            </div>
+
+            <div class="md-form">
+                <textarea wd-active-me msd-elastic class="md-textarea form-control" name="formDescription" ng-model="ctrl.formData.description" id="formDescription" ng-readonly="ctrl.readOnly" placeholder="{{'mwForm.form.description'|translate}}"></textarea>
+            </div>
+        </div>
+
+        <div class="form-page-list">
+            <mw-form-page-builder ng-repeat="page in ctrl.formData.pages| mwStartFrom:ctrl.currentPage * ctrl.options.pageSize | limitTo:ctrl.options.pageSize" form-page="page" form-object="ctrl.formData" is-first="$first" is-last="$last" read-only="ctrl.readOnly"></mw-form-page-builder>
+        </div>
+        <div class="row">
+            <div class="col-12 d-flex justify-content-end">
+                <button type="button"  class="btn btn-default mw-add-new-page-button" ng-click="ctrl.addPage()" ng-if="!ctrl.readOnly"><i class="fa fa-plus"></i> <span translate="mwForm.buttons.addPage"></span></button>
+            </div>
+        </div>
+        <mw-form-confirmation-page-builder form-object="ctrl.formData" read-only="ctrl.readOnly"></mw-form-confirmation-page-builder>
+    </form>
+
+</div>

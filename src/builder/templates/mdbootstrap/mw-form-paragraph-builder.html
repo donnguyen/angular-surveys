@@ -1,0 +1,20 @@
+<div class="mw-form-paragraph-builder-wrapper">
+    <div class="mw-form-paragraph-builder" ng-class="{'ng-submitted':ctrl.formSubmitted}">
+        <div class="paragraph-editor" ng-form="ctrl.form" ng-if="!ctrl.isPreview">
+            <div class="md-form">
+                <textarea msd-elastic class="form-control mw-form-paragraph-textarea md-textarea" ng-model="ctrl.paragraph.html" required ng-attr-id="paragraph-textarea-{{ctrl.id}}" ng-readonly="ctrl.readOnly" ng-attr-placeholder="{{'mwForm.paragraph.placeholder'|translate}}"></textarea>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="actions-container">
+                        <button type="button" class="btn btn-primary mr-0" ng-click="ctrl.save()" translate="mwForm.buttons.questionReady">Gotowe</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mw-preview" ng-if="ctrl.isPreview">
+            <p ng-bind-html="ctrl.paragraph.html"></p>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,69 @@
+<div class="mw-question-grid-builder">
+    <div class="form-inline col-12 grid-types">
+        <mw-label label-for="mw-grid-cell-input-type-{{ctrl.question.id}}" label-class="control-label hidden-sm-down"  label-key="mwForm.question.grid.cellInputType"></mw-label>
+        <div class="form-group" ng-repeat="type in ctrl.cellInputTypes">
+            <input id="mw-grid-cell-input-type-{{ctrl.question.id}}-{{type}}" type="radio" ng-model="ctrl.question.grid.cellInputType" ng-value="type">
+            <label for="mw-grid-cell-input-type-{{ctrl.question.id}}-{{type}}">{{type | uppercase}}</label>
+        </div>
+    </div>
+    <div class="form-horizontal mw-grid-rows-builder">
+        <div class="col-12 section-header">Rows</div>
+        <div class="mw-grid-row-list" ng-sortable="ctrl.rowsSortableConfig" ng-model="ctrl.question.grid.rows" role="list">
+            <div class="mw-grid-item form-group" ng-repeat="row in ctrl.question.grid.rows" role="listitem">
+                <div class="col-12 grid-value-container">
+                    <div class="drag-handle">
+                        <i class="fa fa-arrows-v fa-lg handle-inner"></i>
+                    </div>
+                    <label for="mw-grid-row-{{row.id}}-label" class="control-label grid-item-order">{{row.orderNo}}.</label>
+                    <input ng-attr-id="mw-grid-row-{{row.id}}-label" wd-focus-me="ctrl.isNewInput[row.id]" type="text" ng-model="row.label" ng-keypress="ctrl.keyPressedOnInput($event,row, 'row')" required class="form-control mw-item-label-value "  ng-readonly="ctrl.readOnly">
+                    <button role="button" class="remove-item-button" ng-click="ctrl.removeRow(row)" ng-if="!ctrl.readOnly">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+        <div class="mw-grid-item form-group add-new-item-widget" ng-if="!ctrl.readOnly">
+            <div class="col-12 grid-value-container">
+                <div class="drag-handle"></div>
+                <label class="control-label grid-item-order">{{ctrl.question.grid.rows.length+1}}.</label>
+                <span ng-click="ctrl.addNewRow()" role="button">
+                    <input type="text"  required class="form-control" value="{{'mwForm.question.grid.clickToAddRow'|translate}}">
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="mw-grid-separator col-sm-6 mr-auto ml-auto"></div>
+    </div>
+
+    <div class="form-horizontal mw-grid-cols-builder">
+        <div class="col-12 section-header">Columns</div>
+        <div class="mw-grid-col-list" ng-sortable="ctrl.colsSortableConfig" ng-model="ctrl.question.grid.cols" role="list">
+            <div class="mw-grid-item form-group" ng-repeat="col in ctrl.question.grid.cols" role="listitem">
+                <div class="col-12 grid-value-container">
+                    <div class="drag-handle">
+                        <i class="fa fa-arrows-v fa-lg handle-inner"></i>
+                    </div>
+                    <label for="mw-grid-row-{{row.id}}-label" class="control-label grid-item-order">{{col.orderNo}}.</label>
+                    <input ng-attr-id="mw-grid-col-{{col.id}}-label" wd-focus-me="ctrl.isNewInput[col.id]" type="text" ng-model="col.label" ng-keypress="ctrl.keyPressedOnInput($event,col, 'col')" required class="form-control mw-item-label-value " ng-readonly="ctrl.readOnly">
+                    <button role="button" class="remove-item-button" ng-click="ctrl.removeCol(col)" ng-if="!ctrl.readOnly">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+        <div class="mw-grid-item form-group add-new-item-widget" ng-if="!ctrl.readOnly">
+            <div class="col-12 grid-value-container">
+                <div class="drag-handle">
+                </div>
+                <label class="control-label grid-item-order">{{ctrl.question.grid.cols.length+1}}.</label>
+                <span ng-click="ctrl.addNewCol()" role="button" >
+                    <input type="text"  required class="form-control" value="{{'mwForm.question.grid.clickToAddColumn'|translate}}">
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

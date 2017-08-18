@@ -68,6 +68,7 @@ function buildModuleStream(destPrefix, moduleName) {
     var tmpDir = 'tmp/'+moduleName;
 
     var bootstrapTemplates = buildTemplates(tmpDir+'/templates/bootstrap/', moduleName, 'dist', destPrefix+'-bootstrap');
+    var mdBootstrapTemplates = buildTemplates(tmpDir+'/templates/mdbootstrap/', moduleName, 'dist', destPrefix+'-mdbootstrap');
     var materialTemplates = buildTemplates(tmpDir+'/templates/material/', moduleName, 'dist', destPrefix+'-material');
 
     var module =  gulp.src(tmpDir + '/**/*.js')
@@ -86,7 +87,7 @@ function buildModuleStream(destPrefix, moduleName) {
 
 
 
-    return merge(module, bootstrapTemplates, materialTemplates);
+    return merge(module, bootstrapTemplates, mdBootstrapTemplates, materialTemplates);
 }
 
 gulp.task('test', function (done) {
@@ -140,5 +141,10 @@ gulp.task('serve', ['default'], ()=>{
 
 gulp.task('serve-bootstrap', ['default'], ()=>{
     browserSyncInit("demo");
+gulpWatch();
+});
+
+gulp.task('serve-mdbootstrap', ['default'], ()=>{
+    browserSyncInit("demo-mdbootstrap");
 gulpWatch();
 });

@@ -598,6 +598,13 @@ angular.module('mwFormBuilder').factory("FormQuestionBuilderId", function(){
         controller: ["$timeout", "FormQuestionBuilderId", "mwFormBuilderOptions", function($timeout,FormQuestionBuilderId, mwFormBuilderOptions){
             var ctrl = this;
 
+            $timeout(function() {
+                $('select.select2').select2({
+                    theme: "bootstrap",
+                    dropdownCssClass: "question-type-select2-dropdown",
+                    containerCssClass: "question-type-select2-container"
+                });  
+            })
 
             // Put initialization logic inside `$onInit()`
             // to make sure bindings have been initialized.
@@ -701,12 +708,17 @@ angular.module('mwFormBuilder').factory("FormQuestionBuilderId", function(){
             if (angular.version.major === 1 && angular.version.minor < 5) {
                 ctrl.$onInit();
             }
-
         }],
         link: function (scope, ele, attrs, formPageElementBuilder){
             var ctrl = scope.ctrl;
             ctrl.possiblePageFlow = formPageElementBuilder.possiblePageFlow;
             ctrl.options = formPageElementBuilder.options;
+
+            $(ele).on('change', '.mw-question-type select', function() {
+                questionType = this.value.split(':')[1];
+                ctrl.question.type = questionType;
+                ctrl.questionTypeChanged();
+            })
         }
     };
 });
@@ -1018,6 +1030,14 @@ angular.module('mwFormBuilder').directive('mwFormPageBuilder', ["$rootScope", fu
 
             ctrl.selectElement = function(element){
                 ctrl.activeElement=element;
+                $timeout(function() {
+                    $('select.select2').not('.select2-hidden-accessible').select2({
+                        theme: "bootstrap",
+                        dropdownCssClass: "question-type-select2-dropdown",
+                        containerCssClass: "question-type-select2-container",
+                        width: "100%"
+                    });  
+                })
             };
 
             ctrl.onElementReady = function(){
@@ -1183,7 +1203,7 @@ angular.module('mwFormBuilder').directive('mwFormConfirmationPageBuilder', funct
 });
 
 
-angular.module('mwFormBuilder').directive('mwFormBuilder', ["$rootScope", function ($rootScope) {
+angular.module('mwFormBuilder').directive('mwFormBuilder', ["$rootScope", "$timeout", function ($rootScope, $timeout) {
 
     return {
         replace: true,
@@ -1314,6 +1334,17 @@ angular.module('mwFormBuilder').directive('mwFormBuilder', ["$rootScope", functi
                 ctrl.onChangePageSize();
             };
 
+            ctrl.initSelect2 = function() {
+                $timeout(function() {
+                    $('select.select2').not('.select2-hidden-accessible').select2({
+                        theme: "bootstrap",
+                        dropdownCssClass: "question-type-select2-dropdown",
+                        containerCssClass: "question-type-select2-container",
+                        width: "100%"
+                    });  
+                })
+            }
+
             function arrayMove(arr, fromIndex, toIndex) {
                 var element = arr[fromIndex];
                 arr.splice(fromIndex, 1);
@@ -1402,6 +1433,12 @@ angular.module('mwFormBuilder').directive('mwFormBuilder', ["$rootScope", functi
             scope.$on('mwForm.pageEvents.addPage', function(event,data){
                 ctrl.addPage();
             });
+            scope.$on('mwForm.pageEvents.pageAdded', function(event,data){
+                ctrl.initSelect2();
+            });
+            scope.$on('mwForm.pageEvents.pageMoved', function(event,data){
+                ctrl.initSelect2();
+            });
         }
     };
 }]);
@@ -1414,9 +1451,9 @@ angular.module('mwFormBuilder').filter('mwStartFrom', function() {
     };
 });
 angular.module('mwFormBuilder')
-    .constant('MW_QUESTION_TYPES', ['text', 'textarea', 'radio', 'checkbox', 'select', 'grid', 'priority', 'division', 'number', 'date', 'time', 'email', 'range', 'url'])
+.constant('MW_QUESTION_TYPES', ['text', 'textarea', 'radio', 'checkbox', 'select', 'grid', 'number', 'date', 'time'])// .constant('MW_QUESTION_TYPES', ['text', 'textarea', 'radio', 'checkbox', 'select', 'grid', 'priority', 'division', 'number', 'date', 'time', 'email', 'range', 'url'])
     .constant('MW_ELEMENT_TYPES', ['question', 'image', 'paragraph'])
-    .constant('MW_GRID_CELL_INPUT_TYPES', ['radio', 'checkbox', 'text', 'number', 'date', 'time'])
+    .constant('MW_GRID_CELL_INPUT_TYPES', ['radio', 'checkbox']) // .constant('MW_GRID_CELL_INPUT_TYPES', ['radio', 'checkbox', 'text', 'number', 'date', 'time'])
     .factory('mwFormBuilderOptions', ["MW_ELEMENT_TYPES", "MW_QUESTION_TYPES", function mwFormBuilderOptionsFactory(MW_ELEMENT_TYPES, MW_QUESTION_TYPES){
 
         var defaultElementButtonOptions={
@@ -1518,3 +1555,24 @@ angular.module('mwFormBuilder')
             }
         }
     }]);
+
+angular.module('mwFormBuilder')
+    .directive('wdActiveMe', ["$timeout", "$parse", function($timeout, $parse) {
+        return {
+            link: function(scope, element, attrs) {
+                $timeout(function() {
+                    elementID = element[0].id;
+                    parentElement = element[0].parentElement;
+                    labelElement = parentElement.querySelector('label[for="' + elementID + '"]') || parentElement.querySelector('label');
+                    jElement = angular.element(element);
+
+                    if (jElement.val().length > 0 || jElement.attr('placeholder') !== undefined || jElement[0].validity.badInput === true) {
+                        angular.element(labelElement).addClass('active')
+                    } else {
+                        angular.element(labelElement).removeClass('active')
+                    }
+                });
+            }
+        };
+    }])
+

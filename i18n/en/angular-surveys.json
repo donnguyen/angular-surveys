@@ -31,7 +31,8 @@
                 "empty": "Empty page"
             },
             "pageWithNameCheckbox": "named",
-            "name": "Page name"
+            "name": "Page name",
+            "name.placeholder": "Page name (optional)"
         },
         "pageFlow":{
             "afterPage":"After page {{page}}:",
@@ -116,7 +117,7 @@
                 "clickToAddItem": "Click to add item"
             },
             "grid":{
-                "cellInputType": "Cell input type",
+                "cellInputType": "Grid type",
                 "cellInputTypes":{
                     "radio": "Radio",
                     "checkbox": "Checkbox",
@@ -143,7 +144,7 @@
             "userAnswer": "User answer",
             "buttons":{
                 "addOption":"Click to add option",
-                "addOther":"Add 'Other'"
+                "addOther":"Add \"Other\""
             }
 
         },
